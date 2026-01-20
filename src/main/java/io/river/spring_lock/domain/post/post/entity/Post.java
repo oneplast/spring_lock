@@ -2,6 +2,7 @@ package io.river.spring_lock.domain.post.post.entity;
 
 import io.river.spring_lock.global.jpa.entity.BaseTime;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Version;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,4 +19,8 @@ import lombok.Setter;
 public class Post extends BaseTime {
 
 	private String title;
+
+	@Version
+	@Builder.Default
+	private Long version = 0L;
 }
