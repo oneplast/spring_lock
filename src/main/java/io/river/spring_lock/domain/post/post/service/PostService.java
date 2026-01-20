@@ -11,6 +11,7 @@ import io.river.spring_lock.domain.post.post.repository.PostRepository;
 import io.river.spring_lock.global.rsdata.RsData;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 
 @Service
 @RequiredArgsConstructor
@@ -56,9 +57,13 @@ public class PostService {
 		return post;
 	}
 
+	@SneakyThrows
 	@Transactional
 	public Post modifyWithOptimistic(long id, String title) {
 		Post post = postRepository.findById(id).get();
+
+		Thread.sleep(10_000L);
+
 		post.setTitle(title);
 
 		return post;
