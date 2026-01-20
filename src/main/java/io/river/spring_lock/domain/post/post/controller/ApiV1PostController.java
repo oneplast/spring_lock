@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.river.spring_lock.domain.post.post.entity.Post;
 import io.river.spring_lock.domain.post.post.service.PostService;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 
 @RestController
 @RequestMapping("/api/v1/posts")
@@ -22,5 +23,15 @@ public class ApiV1PostController {
 	public Post getPost(@PathVariable long id) {
 
 		return postService.findById(id).get();
+	}
+
+	@SneakyThrows
+	@GetMapping("/{id}/withShareLock")
+	public Post getWithShareLockPost(@PathVariable long id) {
+		Post post = postService.findWithShareLockById(id).get();
+
+		Thread.sleep(10_000L);
+
+		return post;
 	}
 }
