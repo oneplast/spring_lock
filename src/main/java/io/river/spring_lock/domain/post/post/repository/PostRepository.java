@@ -12,4 +12,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
 	@Lock(LockModeType.PESSIMISTIC_READ)
 	Optional<Post> findWithShareLockById(long id);
+
+	@Lock(LockModeType.PESSIMISTIC_WRITE)
+	Optional<Post> findWithWriteLockById(long id);
 }

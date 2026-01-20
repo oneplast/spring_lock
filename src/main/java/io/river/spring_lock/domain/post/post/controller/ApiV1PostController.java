@@ -34,4 +34,15 @@ public class ApiV1PostController {
 
 		return post;
 	}
+
+	@SneakyThrows
+	@GetMapping("/{id}/withWriteLock")
+	@Transactional
+	public Post getWithWriteLockPost(@PathVariable long id) {
+		Post post = postService.findWithWriteLockById(id).get();
+
+		Thread.sleep(10_000L);
+
+		return post;
+	}
 }
